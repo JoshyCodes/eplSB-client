@@ -199,11 +199,11 @@ function create_product_variation( $data ){
         if( ! taxonomy_exists( $taxonomy ) )
             save_product_attribute_from_name( $attr_name, $attr_label );
 
-        $product_attributes[$taxonomy] = array (
-            'name'         => $taxonomy,
+        $product_attributes[ sanitize_title( $taxonomy ) ] = array (
+            'name'         => wc_clean( $taxonomy ),
             'value'        => '',
             'position'     => '',
-            'is_visible'   => 0,
+            'is_visible'   => 1,
             'is_variation' => 1,
             'is_taxonomy'  => 1
         );

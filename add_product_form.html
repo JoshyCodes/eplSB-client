@@ -1,0 +1,114 @@
+<html>
+<body>
+
+<div class="container">
+
+<form method="post" action="http://mcclient.local/wp-json/v1/createproduct/apitest">
+Product Name<input name="title"><br>
+description<input name="content"><br>
+short description<input name="excerpt"><br>
+regular price<input name="reg_price">
+sale price<input name="sale_price"><br>
+sku<input name="sku"><br>
+img<input name="img"><br>
+img gallery<input name="gallery"><button type="button"> + </button><br>
+
+sizes (size, price adjust, weight, stock)
+<br>
+<section class="form-sizes" id="form_entry_size">
+    <input name="sizes_name[0]" placeholder="Size Name">
+    <input name="sizes_price[0]" placeholder="Size Price Adjustment">
+    <input name="sizes_weight[0]" placeholder="Size Weight">
+    <button type="button" onclick="createSizeRow();"> + </button>
+</section>
+<br>
+
+colors (size, price adjust, stock)
+<br>
+<section class="form-colors" id="form_entry_color">
+    <input name="colors_name[0]" placeholder="Color Name">
+    <input name="colors_price[0]" placeholder="Color Price Adjustment">
+    <button type="button" onclick="createColorRow();"> + </button>
+</section>
+<br>
+
+deco (size, price, stock)
+<br>
+<section class="form-decos" id="form_entry_deco">
+    <input name="deco_name[0]" placeholder="Deco Name">
+    <input name="deco_price[0]" placeholder="Deco Price Adjustment">
+    <button type="button" onclick="createDecoRow();"> + </button>
+</section>
+<br>
+
+<button type="submit">SUBMIT</button>
+</form>
+</div>
+
+<style>
+.unseen{
+    display: none;
+}
+
+</style>
+
+<script>
+
+  function removeRow(element) {
+    let row = element.closest(".removeRow");
+    row.parentNode.removeChild(row);
+  }
+
+function getQty(opt) {
+    let qty = document.querySelectorAll(opt);
+    return qty.length;
+}
+
+  function createSizeRow() {
+    let opt = getQty(".form-sizes");
+    let addOptionBody = `
+        <input name="sizes_name[${opt}]" placeholder="Size Name">
+        <input name="sizes_price[${opt}]" placeholder="Size Price Adjustment">
+        <input name="sizes_weight[${opt}]" placeholder="Size Weight">
+        <button type="button" onclick="removeRow(this);"> - </button>
+        <button type="button" onclick="createSizeRow();"> + </button>`;
+    let parent = document.getElementById('form_entry_size');
+    let size = document.createElement('div');
+    size.setAttribute('class', 'removeRow form-sizes');
+    size.innerHTML = addOptionBody;
+    parent.appendChild(size);
+  }
+
+    function createColorRow() {
+    let opt = getQty(".form-colors");
+    let addOptionBody = `
+        <input name="colors_name[${opt}]" placeholder="Color Name">
+        <input name="colors_price[${opt}]" placeholder="Color Price Adjustment">
+        <button type="button" onclick="removeRow(this);"> - </button>
+        <button type="button" onclick="createColorRow();"> + </button>`;
+    let parent = document.getElementById('form_entry_color');
+    let color = document.createElement('div');
+    color.setAttribute('class', 'removeRow form-colors');
+    color.innerHTML = addOptionBody;
+    parent.appendChild(color);
+  }
+
+      function createDecoRow() {
+    let opt = getQty(".form-decos");
+    let addOptionBody = `
+        <input name="deco_name[${opt}]" placeholder="Deco Name">
+        <input name="deco_price[${opt}]" placeholder="Deco Price Adjustment">
+        <button type="button" onclick="removeRow(this);"> - </button>
+        <button type="button" onclick="createDecoRow();"> + </button>`;
+    let parent = document.getElementById('form_entry_deco');
+    let deco = document.createElement('div');
+    deco.setAttribute('class', 'removeRow form-decos');
+    deco.innerHTML = addOptionBody;
+    parent.appendChild(deco);
+  }
+
+
+</script>
+
+</body>
+</html>

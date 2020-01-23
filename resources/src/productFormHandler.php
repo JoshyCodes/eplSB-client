@@ -19,9 +19,9 @@ function postTest() {
       'tax_class'     => '', // optional
       'weight'        => '', // optional
       'attributes'    => array(
-          'size'   =>  $sizeArray,
-          'color'   =>  $colorArray,
-          'deco'  =>  $decoArray,
+        'color'   =>  $colorArray,
+        'size'   =>  $sizeArray,
+        'deco'  =>  $decoArray,
       ),
     )
   );
@@ -37,19 +37,16 @@ function postTest() {
       
               $variation_data =  array(
                   'attributes' => array(
-                      'size'  => $sizeArray[$x],
-                      'color' => $colorArray[$y],
-                      'deco'  =>  $isDeco,
+                    'color' => $colorArray[$y],
+                    'size'  => $sizeArray[$x],
+                    'deco'  =>  $isDeco,
                   ),
                   'sku'           => $finalSku,
                   'regular_price' => getModifiedPrice($_POST["reg_price"], $priceModifier),
                   'sale_price'    => getModifiedPrice($_POST["sale_price"], $priceModifier),
                   'stock_qty'     => 1,
               );
-
               create_product_variant( $p_id, $variation_data );
-              
-
           }
       }
   }
